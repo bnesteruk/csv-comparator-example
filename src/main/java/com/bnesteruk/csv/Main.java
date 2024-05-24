@@ -54,8 +54,9 @@ public class Main {
 
         /* Uncomment this if you debug the Main class */
 
-        fileAKey = "com.bnesteruk.csv/people_data_A.csv";
-        fileBKey = "com.bnesteruk.csv/people_data_B.csv";
+//        fileAKey = "com.bnesteruk.csv/people_data_A.csv";
+//        fileBKey = "com.bnesteruk.csv/people_data_B.csv";
+
 
         if (fileAKey == null || fileBKey == null) {
             System.err.println("Usage: java -jar your-jar-file.jar fileAKey=<keyA> fileBKey=<keyB>");

@@ -27,17 +27,16 @@ public class CSVService {
 
     /**
      * @param listA list of objects in file A
-     * @param listB list of objects in file A
+     * @param listB list of objects in file B
      * @return the list of string representation for each object where at least on field varies.
      */
     public static List<String> compareData(List<Map<String, String>> listA, List<Map<String, String>> listB) {
         List<String> differences = new ArrayList<>();
 
         /* Check if the given lists are not of the same length.
-         * If so - keep the remaining part from the bigger one */
+         * If so - we will need to process the remaining part from the bigger one at the end */
         int minSize = Math.min(listA.size(), listB.size());
         List<Map<String, String>> largerList = listA.size() > listB.size() ? listA : listB;
-        largerList.subList(minSize, largerList.size());
 
         /* Iterate over the smaller list */
         for (int i = 0; i < minSize; i++) {
@@ -49,15 +48,15 @@ public class CSVService {
                 StringBuilder diffBuilder = new StringBuilder();
                 diffBuilder.append("\t{\n");
 
-                /* Check each map field.
+                /* Check each of the map's fields.
                  * Found difference? Mark the field with < - / + >
                  * No difference ? Just add the field to the string representation with no marks. Output:
                  * {
-                 *   - "First Name": "Jane",
-                 *   + "First Name": "Monica"
+                 *   - "First Name": "Jane",  <--- from A, show with -
+                 *   + "First Name": "Monica" <--- from B, show with +
                  *   - "Last Name": "Smith",
                  *   + "Last Name": "Cameron"
-                 *     "Age": "34",
+                 *     "Age": "34",           <--- no changes between A and B, just show the field
                  *     "Occupation": "Designer",
                  *     "Company": "Creative Inc.",
                  *   }, */
@@ -65,11 +64,13 @@ public class CSVService {
                     String valueA = mapFromA.get(key);
                     String valueB = mapFromB.get(key);
 
+                    /* Append the field with < - / + > */
                     if (!valueA.equals(valueB)) {
                         diffBuilder
                                 .append("\t\t- \"").append(key).append("\": \"").append(valueA).append("\",\n")
                                 .append("\t\t+ \"").append(key).append("\": \"").append(valueB).append("\"\n");
                     } else {
+                        /* Append the field with no marks */
                         diffBuilder
                                 .append("\t\t  \"").append(key).append("\": \"").append(valueA).append("\",\n");
                     }

@@ -75,7 +75,7 @@ The project connects to the S3 bucket via the IAM user's secret key and:
 
 ## Installation
 
-* JDK 17 is required
+* JDK 1.8 is required
 * Make sure the actual IAM user and bucket details are specified in the  [resources/config.properties](src/main/resources/config.properties)
 
 
